@@ -31,3 +31,23 @@ console.log(second);
 // object destructuring with rest parameter
 ({a, b, ...rest} = {a: 10, b: 20, c: 30, d: 40});
 console.log(rest);
+
+// function parameter destructuring (destructuring binding)
+function swap([a, b]) {
+    return [b, a];
+}
+console.log(swap([1, 2])); // [2, 1]
+
+function sumQuadruple([num1, num2, num3, num4]) {
+    return (num1 + num2 + num3 + num4);
+}
+console.log(sumQuadruple([1, 2, 3, 4])); // 10
+
+const user = {
+    id: 46,
+    name: 'Joe'
+};
+function userId({ id }, num) {
+    return id + num;
+}
+console.log(userId(user, 3)); // 49
