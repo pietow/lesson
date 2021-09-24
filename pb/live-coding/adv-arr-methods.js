@@ -51,7 +51,59 @@ let evensArr = numsArr.filter(function(num) {
 // sort (destructive! sorts "in place")
 let numbers = [4, 2, 5, 1, 3];
 numbers.sort(function(a, b) {
-  return a - b;
+    return a - b;
 });
 console.log(numbers); // [1, 2, 3, 4, 5]
 
+// map vs forEach
+// map returns a new array; it does not modify the original array
+nums = [1, 2, 3, 4];
+let squares = nums.map(num => num * num);
+console.log(squares); // [1, 4, 9, 16]
+console.log(nums); // [1, 2, 3, 4] -- nums has not been changed
+
+// forEach allows you to modify the original array
+nums.forEach((num, index, arr) => arr[index] = num * num);
+console.log(nums); // [1, 4, 9, 16] -- nums has been changed
+
+nums = [1, 2, 3, 4, 5];
+
+// for-loops vs forEach
+// you can break out of a for-loop
+for (let i = 0; i < nums.length; i++) {
+    console.log(nums[i]);
+    if (nums[i] > 2) {
+        break;
+    }
+}
+console.log('after for-loop');
+
+// you cannot break out of a forEach statement
+nums.forEach(num => {
+    console.log(num);
+    if (num > 2) {
+        break;
+    }
+})
+console.log('after forEach');
+
+// some
+const some = nums.some(num => num > 3);
+console.log('some is ', some);
+
+// every
+const every = nums.every(num => num > 3);
+console.log('every is ', every);
+
+// you can exit early with some and every
+const answer = nums.some(function(num) {
+    console.log(num);
+    return num > 2;
+});
+console.log('The answer is ', answer);
+
+const answer2 = nums.every(function(num) {
+    console.log(num);
+    return num < 3;
+});
+console.log('answer2 is , answer2);
