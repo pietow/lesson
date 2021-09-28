@@ -45,7 +45,7 @@ function outer3() {
 let getCount = outer3();
 console.log(getCount()); // 1
 console.log(getCount()); // 2
-let getOtherCount = outer3(); // 3
+let getOtherCount = outer3();
 console.log(getOtherCount()); // 1
-console.log(getCount()); // 4
+console.log(getCount()); // 3
 
