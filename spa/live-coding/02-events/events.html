@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        div {
+          background-color: coral;
+          border: 1px solid;
+          padding: 20px;
+          color: white;
+        }
+	p {
+          background-color: blue;
+          padding: 20px;
+          color: white;
+	}
+        input, button {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="myBtn">Click me!</button>
+
+    <div id="myDiv">
+      <p id="myP">Click this paragraph, I am Bubbling.</p>
+    </div><br>
+
+    <div id="myDiv2">
+      <p id="myP2">Click this paragraph, I am Capturing.</p>
+    </div>
+
+    <form action="">
+        <input type="text" name="username" id="username" placeholder="Enter your name">
+        <input id="btn" type="submit" value="Go">
+    </form>
+    <p></p>
+
+    <script src="events.js"></script>
+</body>
+</html>

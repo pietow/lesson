@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-flow: column;
+}
+h1 {
+    text-align: center;
+}
+#outer {
+    background-color: aquamarine;
+    border: 2px solid black;
+    padding: 50px;
+    margin: 50px;
+}
+#inner {
+    background-color: skyblue;
+    border: 2px solid black;
+    padding: 50px;
+}
+td {
+    padding: 50px;
+    border: 1px solid black;
+    font-size: 2rem;
+}
+table {
+    border: 2px solid black;
+    margin: 50px;
+    text-align: center;
+    border-collapse: collapse;
+}
