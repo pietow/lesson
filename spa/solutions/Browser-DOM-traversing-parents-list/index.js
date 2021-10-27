@@ -1,18 +1,14 @@
-// Create empty array to collect name names with their classes
+// Create empty array to collect element names
 const parentsList = [];
+
 // Get starting element
 let currentElement = document.querySelector('cite');
-// We need to do it once for the first element
-let currentElementName = currentElement.nodeName;
-parentsList.unshift(currentElementName.toLowerCase());
-currentElement = currentElement.parentElement;
 
-// Keep looping until there are no more parents
+// Keep looping until there are no more parent elements
 while(currentElement) {
     let currentElementName = currentElement.nodeName;
     parentsList.unshift(currentElementName.toLowerCase());
-    // Update current element to its parent
-    // if there is no parent currentElement will become null and the while loop will break
+    // Update current element to its parent. if there is no parent currentElement will become null and the while loop will break
     currentElement = currentElement.parentElement;
 }
 
