@@ -39,3 +39,14 @@ document.getElementById('myP2').addEventListener('click', function() {
 document.getElementById('myDiv2').addEventListener('click', function() {
     alert('You clicked on the DIV2 element');
 }, true)
+
+let submitBtn = document.getElementById('btn');
+let inputField = document.getElementById('username');
+let para = document.querySelector('p');
+submitBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log(e);
+    console.log(e.target);
+    let userName = inputField.value;
+    para.textContent = userName;
+})
