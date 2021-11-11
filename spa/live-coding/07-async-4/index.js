@@ -37,4 +37,4 @@ async function greetWithDelay() {
     let myGreeting = await getGreeting();
     console.log(myGreeting);
 }
-greetWithDelay(); // Hi!
+greetWithDelay(); // Ciao!
