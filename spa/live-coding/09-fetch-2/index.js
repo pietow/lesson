@@ -39,7 +39,7 @@ const handleSubmit = function () {
     });
 };
 
-submitBtn.addEventListener('click', function (e) {
+submitBtn.addEventListener('click', function(e) {
     e.preventDefault();
     handleSubmit();
     title.value = '';
