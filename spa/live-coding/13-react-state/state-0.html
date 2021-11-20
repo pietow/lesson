@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React State</title>
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // TASK 1: Add a decrement button to the Counter component
+        // TASK 2: Add a name property to the state and a button to change the name (once)
+        // to a new name.  Display the current name in the header
+        // TASK 3: create 3 independent Counter components nested inside an App component.
+        // Render the App component
+
+        class Counter extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    count: 0,
+                    name: this.props.name
+                }
+            }
+            // the new state (the new count) depends on the old state (the old count),
+            // so setState takes a callback function as argument
+            increment = () => {
+                this.setState(state => ({
+                    count: state.count + 1
+                }));
+            }
+
+            // the new state (the new count) depends on the old state (the old count),
+            // so setState takes a callback function as argument
+            decrement = () => {
+                this.setState(state => ({
+                    count: state.count - 1
+                }));
+            }
+
+            // the new state (the new name) does not depend on the old state (the old name),
+            // so setState takes an object, not a callback function, as argument
+            changeName = () => {
+                this.setState({
+                    name: 'Fred'
+                });
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>{this.state.name}'s count is {this.state.count}</h1>
+                        <button onClick={this.increment}>Increment</button>
+                        <button onClick={this.decrement}>Decrement</button>
+                        <button onClick={this.changeName}>Change name to Fred</button>
+                    </div>
+                )
+            }
+        }
+
+        class App extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <Counter name="Ali" />
+                        <Counter name="Ammar"/>
+                        <Counter name="Andre"/>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+    
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, world</title>
+    <title>React State</title>
 
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
@@ -12,33 +12,38 @@
 </head>
 <body>
     <div id="root"></div>
-    
     <script type="text/babel">
 
-        // Task 1: create class-based Name and App components.
-        // Task 2: nest the Name component inside the App component
-        // Task 3: render the App component
-
-        class Name extends React.Component {
-            render() {
-                let name = this.props.name;
-                return <h1>Hi, {name.toUpperCase()}!</h1>;
-            }
-        }
-
+	// input fields as an example of controlled components
         class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    input: '',
+                }
+                this.updateInput = this.updateInput.bind(this);
+            }
+
+            updateInput(event) {
+                this.setState({
+                    input: event.target.value
+                });
+            }
+
             render() {
-                return <Name name="Tom" />; { name: 'Tom' }
+                return (
+                    <div>
+                        <input type="text" onChange={this.updateInput} value={this.state.input}  />
+                    </div>
+                )
             }
         }
 
         ReactDOM.render(
-            <App />, 
+            <App />,
             document.getElementById('root')
         );
-
     </script>
-    
     
 </body>
 </html>
