@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+function getPosts() {
+  console.log('getting posts');
+  return 'Posts';
+}
+
+const initialState = getPosts();
+
 function App() {
-  const [resourceType, setResourceType] = useState('Posts'); 
+  const [resourceType, setResourceType] = useState(initialState); 
   const [count, setCount] = useState(0); 
 
   useEffect(() => {
