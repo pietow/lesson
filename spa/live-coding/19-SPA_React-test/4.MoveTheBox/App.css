@@ -1,0 +1,9 @@
+#box {
+  position: absolute;
+  bottom: 0;
+  width: 10%;
+  height: 10%;
+  left: 45%;
+  background-color: red;
+  transition: 0.5s;
+}

@@ -1,0 +1,15 @@
+fieldset {
+  border: 4px groove grey;
+  width: 12.5em;
+}
+
+label {
+  display: block;
+  width: 7em;
+}
+
+input {
+  font-size: 1em;
+  font-style: sans-serif;
+  width: 12em;
+}

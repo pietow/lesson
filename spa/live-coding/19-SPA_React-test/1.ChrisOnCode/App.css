@@ -1,0 +1,33 @@
+main.user {
+  margin: 4em
+}
+
+
+.user img {
+  border-radius: 1em;
+  width: 12em;
+}
+
+.user h1,
+.user a {
+  color: mediumturquoise;
+}
+
+.user p {
+  color: black;
+  font-weight: bold;
+}
+
+.user strong {
+  display: block;
+  font-size: 0.7em;
+  color: grey;
+}
+
+.user a {
+  text-decoration: none;
+}
+
+.user a:hover{
+  text-decoration: underline;
+}
