@@ -55,18 +55,24 @@ async function ask() {
   try {
     const firstName = await getEntry('enter your first name\n');
     const lastName = await getEntry('enter your last name\n');
-    const age = await getEntry('enter your age\n');
-    // validate the age
-    if(age < 18 || age > 100  || isNaN(age)) {
-      console.log('age should be in the range 18 - 100');
-      process.exit();
+    // validate age
+    let age;
+    let ageCounter = 0;
+    do{
+      if(ageCounter === 5) {
+        console.log('maximum tries number has reached ');
+        process.exit();
+      }
+    age = await getEntry('enter your age\n');
+    ageCounter++;
     }
-    const grades = await getEntry('enter your grade\n');
-    // validate the grade
-    if(grades < 0 || grades > 100  || isNaN(grades)) {
-      console.log('grade should be in the range 0 - 100');
-      process.exit();
+    while(age < 18 || age > 100  || isNaN(age)) 
+    // validate grades
+    let grades;
+    do{
+      grades = await getEntry('enter your grade\n');
     }
+    while(grades < 0 || grades > 100  || isNaN(grades))
     // create an object
     const obj = {
       firstName,
