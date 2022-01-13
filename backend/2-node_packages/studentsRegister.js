@@ -1,3 +1,4 @@
+const fs = require('fs');
 // to make terminal as in\output
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -13,7 +14,7 @@ const rl = readline.createInterface({
 // })
 /**
  * 1- let the user enter the following data:
- *      a- fitst name
+ *      a- first name
  *      b- last name
  *      c- age (18- 100) number
  *      d- grades (0==>100)
@@ -36,12 +37,48 @@ function getEntry(message) {
     })
   })
 }
+
+function save(obj) {
+  const jsonText = fs.readFileSync('students.json', 'utf8');
+  let arr;
+  if (jsonText.trim() === '') {
+    arr = [];
+  } else {
+    arr = JSON.parse(jsonText);
+  }
+  // add the obj to arr
+  arr.push(obj);
+  fs.writeFileSync('students.json', JSON.stringify(arr));
+  return arr;
+}
 async function ask() {
   try {
     const firstName = await getEntry('enter your first name\n');
     const lastName = await getEntry('enter your last name\n');
     const age = await getEntry('enter your age\n');
-    const grade = await getEntry('enter your grade\n');
+    // validate the age
+    if(age < 18 || age > 100  || isNaN(age)) {
+      console.log('age should be in the range 18 - 100');
+      process.exit();
+    }
+    const grades = await getEntry('enter your grade\n');
+    // validate the grade
+    if(grades < 0 || grades > 100  || isNaN(grades)) {
+      console.log('grade should be in the range 0 - 100');
+      process.exit();
+    }
+    // create an object
+    const obj = {
+      firstName,
+      lastName,
+      age,
+      grades
+    }
+    console.log(obj);
+    const allData = save(obj);
+    console.log(allData);
+    process.exit();
+    
   } catch (error) {
     console.log(error);
     process.exit();
