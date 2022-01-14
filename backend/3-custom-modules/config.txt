@@ -1,0 +1,4 @@
+curl --data '{"name":"lesson"}' \  
+       -X POST -u username:$token \
+       https://api.github.com/user/repos
+
