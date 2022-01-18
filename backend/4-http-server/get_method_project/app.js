@@ -43,8 +43,48 @@ const server = http
         }
       });
     } else if (params.doors) {
-      // return to client all cars whch have doors matching
-    } else {
+      // return to client all cars which have doors matching
+      fs.readFile("./products.json", (error, data) => {
+        if (error) {
+          res
+            .writeHead(200, { "content-type": "text/html" })
+            .end("<h1>Internal server error</h1>");
+        } else {
+          const products = JSON.parse(data.toString());
+          let temp = []
+          Object.keys(params).forEach(key=>{
+            temp = products.filter((p) => p[key] == params[key]);
+          })
+          console.log(temp)
+          const product = products.filter((p) => p.doors == params.doors);
+          //   console.log(product)
+          let container = `<div class="container">`;
+          if (product.length > 0) {
+            product.forEach((pro) => {
+              container += `<div class="product"><h2>${pro.brand}</h2> <p>Prise: ${pro.prise}</p><a href="/?id=${pro.id}">Read more</a></div>`;
+            });
+            container += `</div><a href="/">Go To all products</a>`;
+            res.writeHead(200, { "content-type": "text/html" });
+            res.end(
+              template
+                .replace("@@", container)
+                .replace("[[", `All Products || ${params.doors}`)
+            );
+          } else {
+            res.writeHead(200, { "content-type": "text/html" });
+            res.end(template.replace("@@", "No Product Found!"));
+          }
+        }
+      });
+    }else if(params.brand){
+        // store the new incoming request params in products.json, you must auto increas the id
+        // 1-get products
+        // 2-create an object of product (increas id)
+        // 3-push to products the new object
+        // 4-resave the products in same file
+    }
+    
+    else {
       fs.readFile("./products.json", (error, data) => {
         if (error) {
           res
@@ -57,9 +97,26 @@ const server = http
           // console.log(products)
           // loop for each product inside to generate a div for each item
           products.forEach((product) => {
-            container += `<div class="product"><h2>${product.brand}</h2> <p>Prise: ${product.prise}</p><a href="/?id=${product.id}">Read more</a></div>`;
+            container += `<div class="product ${product.power>=200?"red":"" }"><h2>${product.brand}</h2> <p>Prise: ${product.prise}</p><a href="/?id=${product.id}">Read more</a></div>`;
           });
-          container += `</div>`;
+          container += `</div><hr>
+          <form action="/" method="GET">
+            <input type="text" placeholder="Doors" name="doors" /><br>
+            <input type="submit" value="Search" />
+          </form>
+          <hr/>
+          <form action="/" method="GET">
+            <input type="text" placeholder="brand" name="brand"><br/>
+            <input type="text" placeholder="model" name="model"><br/>
+            <input type="text" placeholder="power" name="power"><br/>
+            <input type="text" placeholder="gear" name="gear"><br/>
+            <input type="text" placeholder="fuel" name="fuel"><br/>
+            <input type="text" placeholder="prise" name="prise"><br/>
+            <input type="text" placeholder="doors" name="doors"><br/>
+            <input type="submit" value="Insert" />
+          </form>
+          `;
+        
           res.writeHead(200, { "content-type": "text/html" });
           res.end(
             template.replace("@@", container).replace("[[", "All Products")
