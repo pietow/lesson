@@ -23,7 +23,7 @@ const server = http
                 if(err){
                     res.writeHead(200, {"content-type": "text/html"}).end("<h1>Internal Server Error!</h1>")
                 }else{
-                    let content = `<h1>${product.brand}</h1>
+                    let content = `<div class="product"><h1>${product.brand}</h1>
                             <ul>
                                 <li>model: ${product.model}</li>
                                 <li>power: ${product.power}</li>
@@ -31,7 +31,7 @@ const server = http
                                 <li>fuel: ${product.fuel}</li>
                                 <li>prise: ${product.prise}</li>
                                 <li>doors: ${product.doors}</li>
-                            </ul>
+                            </ul></div>
                             <a href="/">Go To all products</a>
                     `
                     res.writeHead(200, {"content-type": "text/html"})
@@ -41,7 +41,12 @@ const server = http
             //   res.end(JSON.stringify(product))
           }
       })
-    } else {
+    }
+    else if(params.doors){
+        // return to client all cars whch have doors matching
+
+    }
+    else {
       fs.readFile("./products.json", (error, data) => {
         if (error) {
           res
