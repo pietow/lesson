@@ -1,45 +1,31 @@
+<!-- @format -->
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[[</title>
-    
-    <!-- <link rel="stylesheet" href="/style.css"> -->
-    <style>
-        .container{
-            display: flex;
-            flex-wrap:wrap;
-            gap:25px
-        }
-        .product{
-            border: 1px solid;
-            padding: 2%;
-        }
-        .red{
-            background-color: red;
-        }
-    </style>
-</head>
-<body>
-    <nav></nav>
-
-    @@
-<footer></footer>
-<!-- <script>
-    fetch("/?doors=2", {
-        method: "GET"
-        
-    }).then(data=>{
-        data.text().then(d=>{
-            console.log(d)
-        }).catch(err=>{
-
-        })
-    }).catch(error=>{
-        console.log(error)
-    })
-</script> -->
-</body>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="m-5">
+        <h1 class="text-3xl font-bold underline">Car world!</h1>
+        <div class="flex flex-wrap ">
+          @@
+        </div>
+        <form action="/" method="get">
+         <input class="border-2 border-black rounded p-1" type="text" name="doors" id="" value="2"> 
+         <button class="border-2 border-black rounded p-1" type="submit" value="Search">Submit Doors</button>
+        </form>
+        <hr>
+        <form action="/" method="get">
+         <input class="border-2 border-black rounded p-1" type="text" name="brand" id="" value="ford"> 
+         <input class="border-2 border-black rounded p-1" type="text" name="model" id="" value="mustang"> 
+         <input class="border-2 border-black rounded p-1" type="text" name="power" id="" value="electro"> 
+         <input class="border-2 border-black rounded p-1" type="text" name="gear" id="" value="10"> 
+         <input class="border-2 border-black rounded p-1" type="text" name="fuel" id="" value="electron"> 
+         <input class="border-2 border-black rounded p-1" type="text" name="prise" id="" value="100000"> 
+         <input class="border-2 border-black rounded p-1" type="text" name="doors" id="" value="2"> 
+         <button class="border-2 border-black rounded p-1" type="submit" value="Search">Submit New Car</button>
+        </form>
+    </body>
 </html>

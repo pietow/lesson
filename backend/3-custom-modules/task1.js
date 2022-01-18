@@ -54,12 +54,17 @@ function save(obj) {
 function checkPass(pass) {
     const jsonText = fs.readFileSync('users.json', 'utf8')
     let arr = JSON.parse(jsonText)
-    return arr.map((x) => compare(pass, x.password).then((result) => ({ user: x.userName, password: result })))
+    return arr.map((x) =>
+        compare(pass, x.password).then((result) => ({
+            user: x.userName,
+            password: result,
+        })),
+    )
 }
 
 // IEFE
 
-; (async () => {
+;(async () => {
     try {
         const option = await getEntry('what do you want to do?\n')
         switch (option) {
@@ -78,7 +83,9 @@ function checkPass(pass) {
                 const user = await getEntry('enter your username:\n')
                 const passphrase = await getEntry('enter your password:\n')
                 let users = await Promise.all(checkPass(passphrase))
-                let hasPass = users.filter((x) => x.password && x.user === user)[0]
+                let hasPass = users.filter(
+                    (x) => x.password && x.user === user,
+                )[0]
                 if (hasPass) {
                     console.log('Access granted!')
                 } else {
