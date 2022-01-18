@@ -2,34 +2,41 @@
 
 // create a simple web server with multiple routing (home, about, contact, api)
 // the data for api located in data.json file
-const http = require('http')
-const fs = require('fs')
-require('dotenv').config()
-const server = http.createServer((req, res) => {
-    console.log(req.url)
-    fs.writeFile('req.json', JSON.stringify(req.headers), (error) => {
-        if (error) throw error
-    })
 
-    if (req.url === '/home') {
-        res.writeHead(200, { 'content-type': 'text/html' })
-        res.end('<h1>Home</h1>')
-    } else if (req.url === '/about') {
-        res.writeHead(200, { 'content-type': 'text/html' })
-        res.end('<h1>About</h1>')
-    } else if (req.url === '/contact') {
-        res.writeHead(200, { 'content-type': 'text/html' })
-        res.end('<h1>Contact</h1>')
-    } else if (req.url === '/api') {
-        res.writeHead(200, { 'content-type': 'application/json' })
-        fs.readFile('data.json', (error, data) => {
-            if (error) throw error
-            res.end(data.toString())
+// import http, fs
+require('dotenv').config()
+const http = require('http')
+const fs =  require('fs')
+
+const port = process.env.PORT || 3000
+
+const server = http.createServer((req, res)=>{
+    // console.log(req)
+    if(req.method === "GET"){
+        if(req.url !== "/")
+        fs.readFile(`./pages${req.url}.html`, (error, data)=>{
+            if(error){
+                res.writeHead(404, {"content-type":"text/html"}).end("<h4>Not Found!</h4>")
+            }else{
+                res.writeHead(200, {"content-type": "text/html"}).end(data.toString())
+            }
         })
-    } else {
-        res.writeHead(404, { 'content-type': 'text/html' })
-        res.end('<h1>Page not found</h1>')
+        else{
+            res.writeHead(301, {"Location": "/home"}).end()
+        }
+    }else{
+        // for other methods
+        console.log(req.method)
+        console.log(req.url)
+        fs.readFile("./data.json", (error, data)=>{
+            if(error){
+                res.writeHead(404, {"content-type":"application/json"}).end(JSON.stringify({error:"error", message: error}))
+            }else{
+                res.writeHead(200, {"content-type":"application/json"}).end(data.toString())
+            }
+        })
     }
+}).listen(port, ()=>{
+    console.log(process.env.PORT)
+    console.log(`The server is running on port ${port}`)
 })
-console.log(process.env.PORT)
-server.listen(process.env.PORT)
