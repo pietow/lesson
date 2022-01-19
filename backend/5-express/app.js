@@ -1,26 +1,33 @@
-// require express
-const express = require('express');
+/** @format */
 
-const app = express();
+// require express
+const express = require('express')
+
+const app = express()
 // try to get port from .env file
 // if can ot we set it to 3000
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 // create public middleware
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'))
 // create home route
 app.get('/', (req, res) => {
     //console.log(__dirname);
     //res.send("Hello FBW E05-1");
-    res.sendFile(__dirname + '/views/index.html');
-});
+    res.sendFile(__dirname + '/views/index.html')
+})
 app.get('/contactus', (req, res) => {
-    console.log(req);
+    console.log(req)
     res.send('<h1>this is contact us page</h1>')
 })
 // task1:
 // create a route /about and send the file /views/about.html
+app.get('/about.html', (req, res) => {
+    //console.log(__dirname);
+    //res.send("Hello FBW E05-1");
+    res.sendFile(__dirname + '/views/about.html')
+})
 
 // make app listen to port 3000
 app.listen(port, () => {
-    console.log(`node application is listening to port : ${port}`);
+    console.log(`node application is listening to port : ${port}`)
 })
