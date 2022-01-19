@@ -18,7 +18,7 @@
 
 
 const fs = require('fs');
-const {hash} = require('./models/passwordManager')
+const {hash, checkPassword} = require('./models/passwordManager')
 // to make terminal as in\output
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -71,6 +71,7 @@ function save(obj) {
                 //console.log(allData);
                 console.log('your registration is done');
                 process.exit();
+                break;
             case 'login':
                 // https://www.npmjs.com/package/bcrypt
                 // if user entered login instead of register:
@@ -98,8 +99,20 @@ function save(obj) {
                 }
                 // get password
                 const passwordLogin = await getEntry('enter your password:\n');
-
-        
+                // check password
+                 checkPassword(passwordLogin, user.password).then(result => {
+                     if(result){
+                         console.log('right entries');
+                         process.exit();
+                     } else {
+                         console.log('wrong password');
+                         process.exit();
+                     }
+                 }).catch(error => {
+                     console.log(error);
+                     process.exit();
+                 })
+                 break;
             default:
                 process.exit();
 
