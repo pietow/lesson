@@ -18,9 +18,11 @@
 
 // #your registration is done
 
-const fs = require('fs')
-const { hash, compare } = require('./models/passwordManager')
-const readline = require('readline')
+
+const fs = require('fs');
+const {hash, checkPassword} = require('./models/passwordManager')
+// to make terminal as in\output
+const readline = require('readline');
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -76,30 +78,52 @@ function checkPass(pass) {
                     userName,
                     password: hashedPass,
                 }
-                save(obj)
-                console.log('your registration is done')
-                process.exit()
+                const allData = save(obj);
+                //console.log(allData);
+                console.log('your registration is done');
+                process.exit();
+                break;
             case 'login':
-                const user = await getEntry('enter your username:\n')
-                const passphrase = await getEntry('enter your password:\n')
-                let users = await Promise.all(checkPass(passphrase))
-                let hasPass = users.find((x) => x.password && x.user === user)
-                console.log(hasPass)
-                if (hasPass) {
-                    console.log('Access granted!')
-                } else {
-                    console.log('Access denied!')
+                // https://www.npmjs.com/package/bcrypt
+                // if user entered login instead of register:
+                // #enter your username:
+                // #fbw
+                // #enter your password:
+                // 12345678
+                // check his login entries and show these message:
+                // if user not exit: [user not exist]
+                // if user exist but password is wrong: [wrong password]
+                // if user exist and the password is right: [right entries]
+
+                // get username
+                const userNameLogin = await getEntry('enter your username:\n');
+                // check if username is exist in the json file
+                const jsonText = fs.readFileSync('users.json', 'utf8');
+                // convert json text to Array object 
+                const arr = JSON.parse(jsonText);
+                // try to find a user with given username in the Array
+                const user = arr.find(user => user.userName === userNameLogin);
+                // check if user exist
+                if(!user) {
+                    console.log('user is not exist');
+                    process.exit();
                 }
-            // https://www.npmjs.com/package/bcrypt
-            // if user entered login instead of register:
-            // #enter your username:
-            // #fbw
-            // #enter your password:
-            // 12345678
-            // check his login entries and show these message:
-            // if user not exit: [user not exist]
-            // if user exist but password is wrong: [wrong password]
-            // if user exist and the password is right: [right entries]
+                // get password
+                const passwordLogin = await getEntry('enter your password:\n');
+                // check password
+                 checkPassword(passwordLogin, user.password).then(result => {
+                     if(result){
+                         console.log('right entries');
+                         process.exit();
+                     } else {
+                         console.log('wrong password');
+                         process.exit();
+                     }
+                 }).catch(error => {
+                     console.log(error);
+                     process.exit();
+                 })
+                 break;
             default:
                 process.exit()
         }

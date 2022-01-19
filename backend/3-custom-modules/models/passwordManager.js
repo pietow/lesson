@@ -15,25 +15,25 @@ function hash(originalPassword) {
 }
 
 /**
- * compare.
  * check if password is right
- * @param {String} plainPass
- * @param {String} hash
- * @return __ promise with true or false
+ * @param {String} originalPass the original entered pass
+ * @param {String} hash the hashed password from the database
+ * @returns promise with true or false vale
  */
-function compare(plainPass, hash) {
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(plainPass, hash, (err, result) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(result)
-            }
-        })
-    })
+const checkPassword = (originalPass, hash) => {
+    // return new Promise ((resolve, reject) => {
+    //     bcrypt.compare(originalPass, hash,(err, result) => {
+    //         if(err) {
+    //             reject(err)
+    //         } else {
+    //             resolve(result)
+    //         }
+    //     })
+    // })
+    return bcrypt.compare(originalPass, hash)
 }
 
 module.exports = {
     hash,
-    compare,
+    checkPassword
 }
