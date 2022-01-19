@@ -82,6 +82,23 @@ function save(obj) {
                 // if user not exit: [user not exist]
                 // if user exist but password is wrong: [wrong password]
                 // if user exist and the password is right: [right entries]
+
+                // get username
+                const userNameLogin = await getEntry('enter your username:\n');
+                // check if username is exist in the json file
+                const jsonText = fs.readFileSync('users.json', 'utf8');
+                // convert json text to Array object 
+                const arr = JSON.parse(jsonText);
+                // try to find a user with given username in the Array
+                const user = arr.find(user => user.userName === userNameLogin);
+                // check if user exist
+                if(!user) {
+                    console.log('user is not exist');
+                    process.exit();
+                }
+                // get password
+                const passwordLogin = await getEntry('enter your password:\n');
+
         
             default:
                 process.exit();
