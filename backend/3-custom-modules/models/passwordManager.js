@@ -14,6 +14,13 @@ function hash(originalPassword) {
     })
 }
 
+/**
+ * compare.
+ * check if password is right
+ * @param {String} plainPass
+ * @param {String} hash
+ * @return __ promise with true or false
+ */
 function compare(plainPass, hash) {
     return new Promise((resolve, reject) => {
         bcrypt.compare(plainPass, hash, (err, result) => {

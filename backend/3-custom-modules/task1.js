@@ -83,9 +83,8 @@ function checkPass(pass) {
                 const user = await getEntry('enter your username:\n')
                 const passphrase = await getEntry('enter your password:\n')
                 let users = await Promise.all(checkPass(passphrase))
-                let hasPass = users.filter(
-                    (x) => x.password && x.user === user,
-                )[0]
+                let hasPass = users.find((x) => x.password && x.user === user)
+                console.log(hasPass)
                 if (hasPass) {
                     console.log('Access granted!')
                 } else {
