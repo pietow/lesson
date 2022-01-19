@@ -17,6 +17,9 @@ app.get('/contactus', (req, res) => {
     console.log(req);
     res.send('<h1>this is contact us page</h1>')
 })
+// task1:
+// create a route /about and send the file /views/about.html
+
 // make app listen to port 3000
 app.listen(port, () => {
     console.log(`node application is listening to port : ${port}`);
