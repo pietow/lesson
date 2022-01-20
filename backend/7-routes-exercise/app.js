@@ -11,7 +11,7 @@ const app = express();
 
 app.use('/experiences', experiencesRouter);
 
-app.get('/home', (rea, res) => {
+app.get('/home', (req, res) => {
     res.send('Welcome Home');
 })
 
