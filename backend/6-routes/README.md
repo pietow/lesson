@@ -13,9 +13,9 @@
 
     - /home => welcome Home
     - /about => this is about me
-    - /experiences this is experiences page
-    - /experiences/frontend  this is my front end skills
-    - /experiences/backend  this is my back end skills
-    - /experiences/programming-languages  programming languages that I know skills
+    - /experiences => this is experiences page
+    - /experiences/frontend  => this is my front end skills
+    - /experiences/backend  => this is my back end skills
+    - /experiences/programming-languages  => programming languages that I know 
 
 the server should run on port 3000
