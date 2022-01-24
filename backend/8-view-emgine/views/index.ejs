@@ -24,5 +24,10 @@
     <% }else{%>
         <h2>Light Mode</h2>
     <%}%>
+    <ul>
+        <% data.forEach(car=>{ %>
+            <li>Brand: <%= car.name%> | Model: <%= car.model%></li>
+            <%})%>
+    </ul>
 </body>
 </html>
