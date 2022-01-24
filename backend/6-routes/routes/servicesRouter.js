@@ -2,6 +2,7 @@
 const express = require('express')
 
 const servicesRouter = express.Router()
+const languageRouter = require('./languageRouter')
 
 // root / will be /services
 servicesRouter.get('/', (req, res) => {
@@ -16,8 +17,6 @@ servicesRouter.get('/backend', (req, res) => {
     res.send('this is my backend')
 })
 // route for /services/service3
-servicesRouter.get('/programming-languages', (req, res) => {
-    res.send('these are my language skills')
-})
+servicesRouter.use('/languages', languageRouter)
 
 module.exports = servicesRouter
