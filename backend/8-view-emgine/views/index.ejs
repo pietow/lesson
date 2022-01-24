@@ -26,7 +26,7 @@
     <%}%>
     <ul>
         <% data.forEach(car=>{ %>
-            <li>Brand: <%= car.name%> | Model: <%= car.model%></li>
+            <li <%= car.model>=2010?'style=color:red':''%>>Brand: <%= car.name%> | Model: <%= car.model%></li>
             <%})%>
     </ul>
 </body>
