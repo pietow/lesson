@@ -34,3 +34,36 @@
  *      b- "/about" about
  *      c- "/products" products
  */
+
+const express = require('express')
+const logger = require('morgan')
+const {log} = require('console')
+const path = require('path')
+require('dotenv').config()
+const Home = require('./routes/home')
+const About = require('./routes/about')
+const Products = require('./routes/products')
+
+
+const app = express()  
+
+// set variables
+app.set('port', process.env.PORT || 3001)
+// set view engine
+app.set('view engine', 'ejs')
+app.set('views',path.join(__dirname, 'views'))
+// use logger
+app.use(logger('dev'))
+// set public folder
+app.use('/public', express.static(path.join(__dirname, 'public')))
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap')))
+app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery')))
+
+// settings routes
+app.use('/', Home)
+app.use('/about', About)
+app.use('/products', Products)
+
+app.listen(app.get('port'), ()=>{
+    log(`Server is running on port ${app.get('port')}.`)
+})
