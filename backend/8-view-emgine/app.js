@@ -1,6 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
-
+const fs = require('fs')
 const app = express();
 // setting the port
 app.set("port", process.env.PORT || 3000);
@@ -66,12 +66,28 @@ app.get("/services", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
+  // to read GET method params req.query
+  console.log(req.query)
+  // to read POST data req.body
   // res.sendFile(__dirname+'/services.html')
-  res.render("products", {
-    title: "Products",
-    content: "This is Products page",
-    dark: req.query.dark==="true" ? true : false,
-  });
+  fs.readFile('./products.json', (error, data)=>{
+    if(error){
+      res.render('index', {
+        title: "error",
+        dark: req.query.dark==="true" ? true : false,
+        content: "Internal Server Error",
+        data: null
+      })
+    }else{
+      res.render("products", {
+        title: "Products",
+        content: "This is Products page",
+        dark: req.query.dark==="true" ? true : false,
+        data: JSON.parse(data.toString())
+      });
+    }
+  })
+
 });
 
 app.get("/api", (req, res) => {

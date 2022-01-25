@@ -14,7 +14,7 @@
       <!-- navbar starts -->
       <%- include('partials/navbar')%>
       <!-- navbar end -->
-      <h1><%= title%></h1>
+      <h1 class="text-center"><%= title%></h1>
       <%= content%> <% if(dark){%>
       <h2>Dark Mode</h2>
       <% }else{%>
@@ -22,7 +22,7 @@
       <%}%>
       <ul>
         <% data.forEach(car=>{ %>
-        <li <%="car.model">=2010?'style=color:red':''%>>Brand: <%= car.name%> | Model: <%=
+        <li <%=car.model>=2010?'style=color:red':''%>>Brand: <%= car.name%> | Model: <%=
           car.model%>
         </li>
         <%})%>
