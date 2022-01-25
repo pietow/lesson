@@ -14,26 +14,26 @@
       <!-- navbar starts -->
       <%- include('partials/navbar')%>
       <!-- navbar end -->
-      <h1><%= title%></h1>
+      <h1 class="text-center"><%= title%></h1>
       <%= content%> 
     
     <div class="row">
-      <% for(var i=0; i < data.length; i++) { %>
-        <div class="col-md-4">
-            <h2><%= data[i].brand %></h2>
+        <!-- example for each one product -->
+        <% data.forEach(item=>{ %>
+        <div class="col-md-4 mb-4 products">
+            <h2><%= item.brand%></h2>
             <ul>
-                <li>Brand: <%= data[i].brand %> </li>
-                <li>Model: <%= data[i].model %></li>
-                <li>Power: <%= data[i].power %></li>
-                <li>Gear:  <%= data[i].gear %></li>
-                <li>Fuel:  <%= data[i].fuel %></li>
-                <li>prise: <%= data[i].prise %></li>
-                <li>Doors: <%= data[i].doors %></li>
-                <a href="/products/<%= data[i].id %>">Read more</a>
+                <li>Brand: <%= item.brand%></li>
+                <li>Model: <%= item.model%></li>
+                <li>Power: <%= item.power%></li>
+                <li>Gear: <%= item.gear%></li>
+                <li>Fuel: <%= item.fuel%></li>
+                <li>prise: <%= item.prise%></li>
+                <li>Doors: <%= item.doors%></li>
+                <a class="btn btn-success" href="/products?id=<%= item.id%>">Read more</a>
             </ul>
         </div>
-      <% } %>
-        <!-- example for each one product -->
+<% }) %>
     </div>
 </div>
     <script>

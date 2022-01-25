@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /** @format */
 
 const express = require('express')
@@ -5,6 +6,13 @@ const logger = require('morgan')
 const fs = require('fs')
 
 const app = express()
+=======
+const express = require("express");
+const logger = require("morgan");
+const fs = require('fs')
+const {log} = require('console')
+const app = express();
+>>>>>>> d81f028bace47e9fea3f935849783cce95a6ed2c
 // setting the port
 app.set('port', process.env.PORT || 3000)
 // setting a view engine ...
@@ -102,6 +110,7 @@ app.get('/products/:id', (req, res) => {
     })
 })
 
+<<<<<<< HEAD
 app.get('/api', (req, res) => {
     res.json([
         {
@@ -110,6 +119,55 @@ app.get('/api', (req, res) => {
         },
     ])
 })
+=======
+app.get("/products", (req, res) => {
+  // to read GET method params req.query
+  log(req.query)
+  // to read POST data req.body
+  // res.sendFile(__dirname+'/services.html')
+  if(req.query.id){
+fs.readFile('./products.json', (error, data)=>{
+  if(error){
+    res.render('index', {
+      title: "error",
+      dark: req.query.dark==="true" ? true : false,
+      content: "Internal Server Error",
+      data: null
+    })
+  }else{
+    let product = JSON.parse(data.toString()).find(p=>p.id == req.query.id)
+    log(product)
+    res.render('product', {
+      title: product? product.brand: "Not Found",
+      content: product?`This is ${product.brand}'s page`:"Not found",
+      dark: req.query.dark==="true" ? true : false,
+      data: product
+    })
+  }
+})
+  }else{
+      fs.readFile('./products.json', (error, data)=>{
+    if(error){
+      res.render('index', {
+        title: "error",
+        dark: req.query.dark==="true" ? true : false,
+        content: "Internal Server Error",
+        data: null
+      })
+    }else{
+      res.render("products", {
+        title: "Products",
+        content: "This is Products page",
+        dark: req.query.dark==="true" ? true : false,
+        data: JSON.parse(data.toString())
+      });
+    }
+  })
+  }
+
+
+});
+>>>>>>> d81f028bace47e9fea3f935849783cce95a6ed2c
 
 app.listen(app.get('port'), () => {
     console.log(`The server is running on Port: ${app.get('port')}`)
