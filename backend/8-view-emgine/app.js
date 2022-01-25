@@ -2,6 +2,7 @@
 
 const express = require('express')
 const logger = require('morgan')
+const fs = require('fs')
 
 const app = express()
 // setting the port
@@ -67,27 +68,37 @@ app.get('/services', (req, res) => {
         dark: req.query.dark === 'true' ? true : false,
     })
 })
-
+function loadJSON() {
+    const jsonText = fs.readFileSync('products.json', 'utf8')
+    let arr
+    if (jsonText.trim() === '') {
+        arr = []
+    } else {
+        arr = JSON.parse(jsonText)
+    }
+    return arr
+}
 app.get('/products', (req, res) => {
     // res.sendFile(__dirname+'/services.html')
 
-    const fs = require('fs')
-    const data = (function loadJSON() {
-        const jsonText = fs.readFileSync('products.json', 'utf8')
-        let arr
-        if (jsonText.trim() === '') {
-            arr = []
-        } else {
-            arr = JSON.parse(jsonText)
-        }
-        return arr
-    })()
+    const data = loadJSON()
 
     res.render('products', {
         title: 'Products',
         content: 'This is Products page',
-        dark: req.query.dark === 'true' ? true : false,
+        dark: req.query.dark ? true : false,
         data: data,
+    })
+})
+
+app.get('/products/:id', (req, res) => {
+    /* res.send(req.params.id) */
+    const data = loadJSON()
+    res.render('product', {
+        title: 'Products',
+        content: 'This is Products page',
+        dark: req.query.dark ? true : false,
+        data: data[req.params.id],
     })
 })
 
@@ -103,3 +114,14 @@ app.get('/api', (req, res) => {
 app.listen(app.get('port'), () => {
     console.log(`The server is running on Port: ${app.get('port')}`)
 })
+
+function loadJSON() {
+    const jsonText = fs.readFileSync('products.json', 'utf8')
+    let arr
+    if (jsonText.trim() === '') {
+        arr = []
+    } else {
+        arr = JSON.parse(jsonText)
+    }
+    return arr
+}
