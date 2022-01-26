@@ -11,3 +11,9 @@
         - /contact render contact page
     you should convert all template pages to ejs files
     
+#### Task2:
+    - create partials folder and inside you need to add those files:
+        - navigation.ejs which contains navigation bar element
+        - footer.ejs which contains footer element
+
+    - include those partials in other views (index, about, contact, videos)
