@@ -1,3 +1,8 @@
+## Objectives
+    - understand routing
+    - url parameters
+    - res methods
+
 ### Task1:
 
 ##### create express server with the following Routes:
@@ -19,3 +24,11 @@ the server should run on port 3000
     - /experiences/programming-languages/csharp
     - /experiences/programming-languages/c-plus
     - /experiences/programming-languages/python
+
+### Task3: 
+
+##### create routes like the following
+
+    1- /page1 should redirect to /page2
+    2- /page2 should redirect to /page1
+
