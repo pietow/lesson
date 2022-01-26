@@ -180,7 +180,9 @@ a:hover { color:#009999; }
 
 .form-group { margin-bottom: 25px; }
 .tm-btn-big { padding: 12px 90px 14px; }
-
+#navbarSupportedContent{
+    z-index: 1;
+}
 .navbar-toggler:focus { box-shadow: none; }
 .navbar-brand {
     color: #3399CC;
@@ -458,7 +460,6 @@ figure.effect-ming:hover img { opacity: 0.4; }
     background-color: #333;
     margin-bottom: 90px;
     position: relative;
-    z-index: -1;
 }
 
 #tm-video {
