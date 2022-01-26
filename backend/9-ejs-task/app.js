@@ -1,4 +1,5 @@
 /** @format */
+const fortune = require('./lib/fortune.js')
 
 const express = require('express')
 const fs = require('fs')
@@ -12,11 +13,13 @@ app.engine('handlebars', handlebars.engine)
 app.set('view engine', 'handlebars')
 app.set('port', 3000)
 
+app.use(express.static(__dirname + '/public'))
+
 app.get('/', function (req, res) {
     res.render('home')
 })
 app.get('/about', function (req, res) {
-    res.render('about')
+    res.render('about', { fortune: fortune.getFortune() })
 })
 // 404 catch-all handler (middleware)
 app.use(function (req, res, next) {
