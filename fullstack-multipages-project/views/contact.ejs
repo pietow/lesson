@@ -184,8 +184,8 @@ https://templatemo.com/tm-556-catalog-z
             department: contactSelect.value,
             message: messageInput.value
         }
-
-        
+        // send data using GET request
+        // www.ff.com/?name=ahmad&email=sss@ff.com&
             try {
                 const response = await fetch('/contact', {
                     method: 'POST',
@@ -196,14 +196,13 @@ https://templatemo.com/tm-556-catalog-z
                 });
                 const answer = await response.json()
                 // deal with the answer
+                console.log(answer);
 
             } catch (error) {
                 console.log(error);
             }
-       
-
         })
-        
+    
 
     </script>
 </body>
