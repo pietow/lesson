@@ -43,6 +43,19 @@ app.post('/contact', (req, res) => {
     })
 })
 
+app.get('/register', (req, res) => {
+    res.render('register')
+})
+app.post('/register', (req, res) => {
+    console.log(req.body);
+    emailSender.sendEmail(req.body).then((info) => {
+        console.log(info);
+        res.json({result: 'done'})
+    }).catch(error => {
+        console.log(error);
+        res.json({result: 'error'})
+    })
+})
 
 app.listen(port, () => {
     console.log(`app is listening on port ${port}`);

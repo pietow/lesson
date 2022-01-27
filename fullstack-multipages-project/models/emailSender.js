@@ -49,8 +49,8 @@ function sendEmail(emailData) {
             <h1>email from contact page in your website</h1>
             <p><strong>Name:</strong> ${emailData.name}</p>
             <p><strong>email:</strong> ${emailData.email}</p>
-            <p><strong>department:</strong> ${emailData.department}</p>
-            <p>${emailData.message}</p>
+            <p><strong>department:</strong> ${emailData.password}</p>
+            <p>${emailData.password}</p>
             `
         }
         transporter.sendMail(mailOption, (err, info) => {
