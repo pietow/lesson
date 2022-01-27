@@ -26,6 +26,9 @@ app.get('/contact', (req, res) => {
 app.get('/videos', (req, res) => {
     res.render('videos')
 })
+app.post('/contact', (req, res) => {
+    console.log(req.body);
+})
 
 
 app.listen(port, () => {

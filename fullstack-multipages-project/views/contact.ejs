@@ -173,6 +173,38 @@ https://templatemo.com/tm-556-catalog-z
         const messageInput = document.querySelector('#message-input');
         const submitButton = document.querySelector('#submit-button');
 
+        // add click event to submit button
+        submitButton.addEventListener('click', async (e) => {
+            // tp prevent the page to be reloaded on button click
+            e.preventDefault();
+
+            const data = {
+            name: nameInput.value,
+            email: emailInput.value,
+            department: contactSelect.value,
+            message: messageInput.value
+        }
+
+        
+            try {
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify(data)
+                });
+                const answer = await response.json()
+                // deal with the answer
+
+            } catch (error) {
+                console.log(error);
+            }
+       
+
+        })
+        
+
     </script>
 </body>
 </html>
