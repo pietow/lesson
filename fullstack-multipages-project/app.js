@@ -5,12 +5,15 @@ const express = require('express')
 require('dotenv').config()
 const path = require('path')
 
+// import emailSender
+const emailSender = require('./models/emailSender')
+
 const app = express()
 const port = process.env.PORT || 3000
 
 // add middleware to get the data using POST request
-/* app.use(express.urlencoded({extended: true})); */
-/* app.use(express.json()); */
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 // set public folder
 app.use(express.static(path.join(__dirname, 'public')))
@@ -34,17 +37,19 @@ app.get('/videos', (req, res) => {
     res.render('videos')
 })
 app.post('/contact', (req, res) => {
-    let body = []
-    req.on('data', (chunk) => {
-        body.push(chunk)
-        console.log(chunk.toString())
-    }).on('end', () => {
-        body = Buffer.concat(body).toString()
-        console.log(body)
-        // at this point, `body` has the entire request body stored in it as a string
-    })
+    /* let body = [] */
+    /* req.on('data', (chunk) => { */
+    /*     body.push(chunk) */
+    /*     console.log(chunk.toString()) */
+    /* }).on('end', () => { */
+    /*     body = Buffer.concat(body).toString() */
+    /*     console.log(body) */
+    /*     // at this point, `body` has the entire request body stored in it as a string */
+    /* }) */
     console.log(req.body)
-    res.send(JSON.stringify(req.body))
+    emailSender.sendEmail(req.body, (data) => {
+        res.json(data)
+    })
 })
 
 app.listen(port, () => {
