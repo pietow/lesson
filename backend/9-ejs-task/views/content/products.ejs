@@ -20,10 +20,17 @@
     </div>
 </div>
 <!-- display all products -->
- <div class="row">
+<% let items = 3 %>
     <!-- repeat this div -->
     <% data.forEach((product, index)=>{ %>
-    <div class="col-md-4">
+        <% if(index % items == 0){ %>
+            <% if(index >0){ %>
+                </div>
+                <hr>
+            <%}%>
+            <div class="row">
+        <%}%>
+    <div class="col-md-<%= 12/items%> mt-4">
         <div class="card">
             <div class="card-header bg-dark"><%= product.name%></div>
             <div class="card-body text-dark">
@@ -37,6 +44,7 @@
             </div>
         </div>
     </div>
-    
+    <% if(index == data.length-1){ %>
+    </div>
+    <%}%>
     <%})%>
-</div>
