@@ -60,7 +60,7 @@ res.render('FILE_NAME', OBJECT)
 
 1. Create performance get handler
     
-    a. router/performance.js
+    a. routes/performance.js
     
     b.  views/performance.ejs
 
