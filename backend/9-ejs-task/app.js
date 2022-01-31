@@ -63,6 +63,10 @@ app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery')))
 app.use('/', Home)
 app.use('/about', About)
 app.use('/products', Products)
+// to set 404 page
+app.get('*', (req, res)=>{
+    res.render('mainTemplate', {title:'Not Found', content: 'error', error:"Page Not Found"})
+})
 
 app.listen(app.get('port'), ()=>{
     log(`Server is running on port ${app.get('port')}.`)

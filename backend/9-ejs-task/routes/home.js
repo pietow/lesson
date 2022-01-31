@@ -3,7 +3,8 @@ const route = express.Router()
 
 route.get('/', (req, res)=>{
     res.render('mainTemplate', {
-        title: "Home Page"
+        title: "Home Page",
+        content: 'home'
     })
 })
 
