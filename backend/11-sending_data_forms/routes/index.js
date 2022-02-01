@@ -35,9 +35,14 @@ router.get('/persons', (req, res)=>{
 router.get('/persons/:id', (req, res)=>{
     // res.json
     let id = req.params['id']
-    let person = persons.find(p=>p.id == id)
+    // let person = persons.find(p=>p.id == id)
     // res.json(person)
-    res.render('person', {person: person})
+    // res.render('person', {person: person})
+    Persons.getPersonById(id).then(person=>{
+        res.render('person', {person: person})
+    }).catch(error=>{
+        res.json(error)
+    })
 })
 
 
