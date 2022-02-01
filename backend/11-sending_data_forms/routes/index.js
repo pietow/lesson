@@ -45,6 +45,21 @@ router.get('/persons/:id', (req, res)=>{
     })
 })
 
+router.get('/add', (req, res)=>{
+    res.render('add')
+})
+
+router.post('/add', (req, res)=>{
+    // POST Request === > req.body
+    // res.json(req.body)
+    console.log(req.body)
+    Persons.addPerson(req.body).then(()=>{
+        res.redirect('/persons')
+    }).catch(error=>{
+        res.json(error)
+    })
+})
+
 
 
 module.exports = router
