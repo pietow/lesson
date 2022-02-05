@@ -51,3 +51,43 @@ or in form HTML:
 
 ## POST Request
 
+> To send a POST requset from Browser using form tag and method attribute to be POST like the following:
+
+```HTML
+<form action="/somepage" method="POST"></form>
+```
+
+> The data which are sent to server using POST method will not appear in URL like in GET method. <br>
+And Like GET method we have to set "name" attribute for each input inside the form.<br>
+Example:<br>
+```HTML
+<form action="/somepage" method="POST">
+    <input type="text" name="first_name">
+    <input type="text" name="last_name">
+    <input type="submit" value="Submit">
+</form>
+```
+> To read this data in Server Side, we have to use ``` express.json() ``` as a middleware to parse the incoming object
+```javascript
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+/*The extended option allows to choose between parsing the URL-encoded data with the querystring library (when false) or the qs library (when true). The “extended” syntax allows for rich objects and arrays to be encoded into the URL-encoded format, allowing for a JSON-like experience with URL-encoded.
+Defaults to true, but using the default has been deprecated. Please research into the difference between qs and querystring and choose the appropriate setting.
+Defaults to true, but using the default has been deprecated.
+*/
+```
+> Read more about [query string "qs"](https://www.npmjs.com/package/qs#readme) librery.
+
+> Not: in GET, DELETE methods yo don't have to use ``` express.json(), express.urlencoded() ```
+
+> then after processing the POST request, you may looking for some matching data or add a new item in file ore in database, you have to send response to the client, or redirect
+```javascript
+// sending response as json
+res.json({success: "true"})
+// or sending response as HTML rendered file
+res.render('renderFile', {})
+// or redirect to some route
+res.redirect('/someRoute')
+```
+
+> We can send POST requests not only from browsers, but olso from any program/application like Postman or from another server.
