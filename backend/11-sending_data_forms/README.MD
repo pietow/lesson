@@ -80,6 +80,21 @@ Defaults to true, but using the default has been deprecated.
 
 > Not: in GET, DELETE methods yo don't have to use ``` express.json(), express.urlencoded() ```
 
+> To read POST request data fron express:
+```javascript
+router.post('/someRoute', (req, res)=>{
+    console.log(req.body)
+    /* req.body is an object of all incoming data from POST request, 
+        the name attribute in each input is a key, and the value is the value from this input
+        req.body = {
+            first_name: "the first_name input value",
+            last_name: "the last_name input value"
+        }
+        sure if we have more inputs, will be sent as each input name attribute will be as key for req.body object.
+    */
+})
+```
+
 > then after processing the POST request, you may looking for some matching data or add a new item in file ore in database, you have to send response to the client, or redirect
 ```javascript
 // sending response as json
