@@ -11,3 +11,4 @@
             5. phone
             6. age
     2. insert 3 users
+    3. update the first name, age to one user
