@@ -1,30 +1,28 @@
 const express = require('express');
-const { engine } = require('express-handlebars')
-const path = require('path');
+/* const { engine } = require('express-handlebars') */
+/* const path = require('path'); */
+/* const router = require('./routes/generalRouter') */
+const bodyParser = require('body-parser')
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// add middleware to get the data using POST request
-app.use(express.urlencoded({extended: false})); // false it will queryString parser
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
 
-// set public folder
-app.use(express.static(path.join(__dirname, 'public')))
 
-app.engine('handlebars', engine())
-app.set('view engine', 'handlebars')
-app.set('views', './views')
+/* app.engine('handlebars', engine()) */
+/* app.set('view engine', 'handlebars') */
+/* app.set('views', './views') */
 
-app.get('/', (req, res) => {
-    res.render('home')
-})
-app.get('/login', (req, res) => {
-    res.render('login')
-})
-app.get('/admin', (req, res) => {
-    res.render('admin')
-})
+/* app.use(express.static(path.join(__dirname, 'public'))) */
+
+app.post('/test', (req, res) => {
+  console.log(req.body)
+  res.send({'result': res.body})
+} )
+
+/* app.use(router) */
 app.listen(port, () => {
     console.log(`app is listening on port ${port}`);
 })
