@@ -19,6 +19,29 @@
     <script>
         // write the script to send username and password to /login route using fetch
         // at login button click
+
+        const usernameInp = document.querySelector('#usernameInp');
+        const passwordInp = document.querySelector('#passwordInp');
+        const submitBtn = document.querySelector('#submitBtn');
+        submitBtn.addEventListener('click', async (e) => {
+            const data = {
+                username: usernameInp.value,
+                password: passwordInp.value
+            }
+            const response = await fetch('/login', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result === 'done') {
+                window.location = '/admin';
+            } else {
+                alert('wrong username or password, try again')
+            }
+        })
     </script>
 </body>
 </html>

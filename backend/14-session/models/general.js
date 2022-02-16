@@ -10,6 +10,12 @@ const loginPost = (req, res) => {
     // matches the following ['admin', 'admin']
     // if it matches res.json('done');
     // else res.json('error')
+    const {username, password} = req.body;
+    if (username === 'admin' && password === 'admin') {
+        res.json('done');
+    } else {
+        res.json('error')
+    }
 }
 
 module.exports = {
@@ -17,3 +23,4 @@ module.exports = {
     aboutUs,
     loginPost
 }
+
