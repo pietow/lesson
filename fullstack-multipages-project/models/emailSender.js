@@ -42,7 +42,7 @@ const transporter = nodemailer.createTransport({
 function sendEmail(emailData) {
     return new Promise((resolve, reject) => {
         const mailOption = {
-            from: process.env.APP_EMAIL,
+            from: 'thomas.kuhnert@devugees.org',
             to: process.env.CONTACT_EMAIL,
             subject: 'Email from your website',
             html: `
