@@ -5,8 +5,8 @@ const adminHome = (req, res) => {
     if (req.session.user) {
         res.render('admin')
     } else {
-        /* res.redirect('/login') */
-        res.render('admin')
+        res.redirect('/login')
+        /* res.render('admin') */
     }
 }
 
