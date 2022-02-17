@@ -8,29 +8,32 @@
         e.preventDefault()
         let action = '/login'
         let formData = new FormData(e.target)
-        /* console.log(formData.get('password')) */
-        /* console.log('bla') */
-        form_login(action, formData)
+        const data = {}
+        for (let [key, value] of formData.entries()) data[key] = value
+        form_login(action, data)
     })
 
-    /* const body = JSON.stringify({ */
-    /*     bla: 'awd', */
-    /*     awd: 'awd', */
-    /* }) */
-    const headers = {'Content-Type': 'application/json'}
-
-    function form_login(action, FormData) {
-        fetch(action, { method: 'post', FormData, headers })
+    function form_login(action, data) {
+        fetch(action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
             .then((res) => {
                 if (res.status < 200 || res.status >= 300)
                     throw new Error(
-                        'Request failed with status code ' + resp.status,
+                        'Request failed with status code ' + res.status,
                     )
                 return res.json()
             })
-            .then((json) => {
-                console.log(json)
-                console.log('ba')
+            .then((result) => {
+              if(result==='done') {
+                window.location = '/admin'
+              } else {
+                throw new Error('Server Error')
+              }
             })
             .catch((err) => {
                 console.log(err)
