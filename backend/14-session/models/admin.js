@@ -12,7 +12,13 @@ const logout = (req, res) => {
     res.redirect('/login')
 }
 
+const logOutPost = (req, res) => {
+    req.session.destroy();
+    res.json('done')
+}
+
 module.exports = {
     adminHome,
-    logout
+    logout,
+    logOutPost
 }

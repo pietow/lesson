@@ -18,7 +18,19 @@
     </ul>
     <script>
         // logout button event listener here
-        
+        const logoutBtn = document.querySelector('#logOutBtn');
+        logoutBtn.addEventListener('click', async () => {
+            const response = await fetch('/admin/logout', {
+                method: 'POST'
+            })
+            const result = await response.json();
+            if (result === 'done') {
+                alert('you are logged out and will be redirected to login page')
+                setTimeout(() => {
+                   window.location = '/login' 
+                }, 2000)
+            }
+        })
     </script>
 </body>
 </html>
