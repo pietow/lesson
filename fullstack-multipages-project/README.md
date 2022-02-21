@@ -4,27 +4,32 @@
 ### tasks:
 
 #### Task1:
-    - create backend project and create these routes
-        - / will render home page
-        - /videos render videos page
-        - /about render about page 
-        - /contact render contact page
-    you should convert all template pages to ejs files
-    
-#### Task2:
-    - create partials folder and inside you need to add those files:
-        - navigation.ejs which contains navigation bar element
-        - footer.ejs which contains footer element
+create register page under this route /register and add a link for register on the navigation bar
 
-    - include those partials in other views (index, about, contact, videos)
+    - register page should have the following inputs
 
-#### Task3:
-    - create a new route called /register
-    - create a new view called register.ejs
-        - the view is a copy of contact.ejs but you need only to show the following inputs
-            - name
-            - email
-            - password
-            - repassword
-    - after click register button, the user should get welcome Email
-    - do'nt forget to add the register link to the navigation bar
+        - first name
+        - last name
+        - username
+        - email
+        - password
+        - re-password
+        - birth date
+
+    - create database on mongodb atlas called FBW-e05-1
+    - save user registered data in a collection called users in the database
+    - create a schema called userSchema with these properties and validation:
+        - first name: string, min length: 2 , max length: 50, required
+        - last name: string, min length: 2 , max length: 50, required
+        - email: string, min length: 5 , max length: 50, required, unique
+        - password (should be encrypted): string, required
+        - birth date: date, required
+        - verified (should be false): boolean 
+    - sending registered user data from front to back end should be by FETCH 
+
+#### Extra:
+on the database validation : 
+
+    - email: should be an email format
+    - birth date: user should be 18 years old or older
+

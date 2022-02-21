@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog-Z Contact page</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!--
+    
+TemplateMo 556 Catalog-Z
+
+https://templatemo.com/tm-556-catalog-z
+
+-->
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+    <!-- navigation start -->
+    <%- include('partials/navigation.ejs', {page: 'register' }) %>
+        <!-- navigation end -->
+
+        <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll"
+            data-image-src="img/hero.jpg"></div>
+        <!-- content here -->
+
+
+        <div class="container-fluid tm-mt-60">
+            <div class="row tm-mb-50">
+                <div class="col-lg-12 col-12 mb-5">
+                    <h2 class="tm-text-primary mb-5">Register Page</h2>
+                    <form id="register-form" action="" method="POST" class="mx-auto">
+                        <div class="form-group">
+                            <input id="fname-input" minlength="2" maxlength="50" type="text"  class="form-control rounded-0"
+                                placeholder="First Name" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="lname-input" minlength="2" maxlength="50" type="text"  class="form-control rounded-0"
+                                placeholder="Last Name" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="username-input" minlength="4" maxlength="50" type="text"  class="form-control rounded-0"
+                                placeholder="user Name" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="email-input" type="email" minlength="5" maxlength="50"  class="form-control rounded-0"
+                                placeholder="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="password-input" type="password" minlength="8" maxlength="20"  class="form-control rounded-0"
+                                placeholder="password" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="repassword-input" type="password" data-pristine-equals="#password-input"  class="form-control rounded-0"
+                                placeholder="password" required />
+                        </div>
+                        <div class="form-group">
+                            <input id="birthdate-input" type="date"  class="form-control rounded-0"
+                                 required />
+                        </div>
+                        <div class="form-group tm-text-right">
+                            <button id="register-button"  class="btn btn-primary">register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- footer start -->
+        <%- include('partials/footer.ejs') %>
+            <!-- footer end -->
+
+            <script src="./js/plugins.js"></script>
+            <script src="./js/pristine/dist/pristine.min.js"></script>
+            <script>
+                $(window).on("load", function () {
+                    $('body').addClass('loaded');
+                });
+
+                // add event listener to register button
+                const registerBtn = document.getElementById('register-button');
+                const fnameInp = document.getElementById('fname-input');
+                const lnameInp = document.getElementById('lname-input');
+                const usernameInp = document.getElementById('username-input');
+                const emailInp = document.getElementById('email-input');
+                const passwordInp = document.getElementById('password-input');
+                const birthDateInp = document.getElementById('birthdate-input');
+                const registerForm = document.getElementById('register-form')
+
+                registerBtn.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    const pristine = new Pristine(registerForm);
+                    const valid = pristine.validate();
+                    console.log(valid);
+                    if (valid) {
+                        try {
+                            const data = {
+                                fName: fnameInp.value,
+                                lName: lnameInp.value,
+                                username: usernameInp.value,
+                                email: emailInp.value,
+                                password: passwordInp.value,
+                                birthDate: birthDateInp.value
+                            }
+                            const response = await fetch('/register', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            });
+                            const result = await response.json();
+                            console.log(result);
+                        } catch (error) {
+                            
+                        }
+                    }
+                })
+
+
+            </script>
+</body>
+
+</html>
