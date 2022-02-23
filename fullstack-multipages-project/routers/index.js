@@ -15,7 +15,7 @@ router.post('/register',
 // set express-validator rules
 body('fName').isLength({min: 2, max: 50}).notEmpty().isAlpha(),
 body('lName').isLength({min: 2, max: 50}).notEmpty().isAlpha(),
-body('username').isLength({min: 4, max: 50}).notEmpty(),
+body('username').isLength({min: 4, max: 50}).notEmpty().isAlpha(),
 body('email').isLength({min: 5, max: 50}).notEmpty().isEmail(),
 body('password').isLength({min: 8, max: 20}).notEmpty(),
 body('birthDate').notEmpty().isDate()
