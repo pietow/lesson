@@ -33,3 +33,9 @@ on the database validation :
     - email: should be an email format
     - birth date: user should be 18 years old or older
 
+#### Task2:
+after register done:
+    - show a message on front-end with errors or success message , you need to use bootstrap modals or Alerts for that
+    - send email to the user with this link 'http://localhost:5500/verifiy/:userid'
+    - if user click that link the system should find the user with the same id that comes from url parameter :id and set verify property in database to be true instead of false.
+
