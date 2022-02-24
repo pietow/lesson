@@ -104,6 +104,6 @@ let student_1 = {
         street: "Main Street"
     }
 }
-Students.create(student_1).then(result=>{
+Students.create([{...student_1, email: "abcccc@abc.abc"},{...student_1, email: "newwww@new.new"}]).then(result=>{
     log("Success",result)
 }).catch(error=>log(error.message))
