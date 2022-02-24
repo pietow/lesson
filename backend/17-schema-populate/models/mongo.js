@@ -12,6 +12,8 @@
 const mongoose = require("mongoose");
 
 // connet
+// in localhost:
+// mongodb://localhost:27017/bookstore
 mongoose.connect(
   `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.ooog1.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
   (error) => {
