@@ -53,6 +53,40 @@ const author_schema = new mongoose.Schema(
 );
 const Authors = mongoose.model('Authors', author_schema);
 //////////////////////////////////////////////////
+/**
+ * create books_schema contains the following:
+ * 1- title, String, required, max 50
+ * 2- author, ID FOR AUTHOR,  
+ * 3- pages: Number, required,
+ * 4- prise:  Number, required,
+ * 5- description: description: String, required
+ * 
+ * 
+ * example for one book: {
+ *  title: "ANY",
+ *  author: {
+ *    name: "ANY",
+ *    email: "ANY",
+ *    address: {  
+ *      country: "ANY",
+ *      city: "ANY"
+ *    },
+ *    phone: "ANY"
+ *  },
+ *  author: ID FOR AUTHOR
+ *  pages: Number, required,
+ *  prise: Number, required,
+ *  description: String
+ * }
+ */
+// books_schema
+const books_schema = mongoose.Schema({
+  title: {type: String, maxlength: 50, required: true},
+  author: {type: mongoose.Schema.Types.ObjectId, ref: 'Authors',required: true},
+  pages: {type: Number, required: true},
+  prise: {type: Number, required: true},
+  description: {type: String, required: true}
+},{collection: 'books'})
+const Books = mongoose.model('Books', books_schema)
 
-
-module.exports = {Authors}
+module.exports = {Authors, Books}

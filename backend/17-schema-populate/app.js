@@ -11,6 +11,7 @@ const Mongo = require('./models/mongo');
 const express = require('express')
 const path = require('path')
 const adminRout = require('./routes/admin')
+const indexRouter = require('./routes/index')
 const app = express()
 
 app.set('port', process.env.PORT || 3000)
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/bootstrap', express.static(path.join(__dirname , 'node_modules/bootstrap')))
 app.use('/jquery', express.static(path.join(__dirname , '/node_modules/jquery')))
 
+app.use('/', indexRouter)
 app.use('/admin', adminRout)
 
 

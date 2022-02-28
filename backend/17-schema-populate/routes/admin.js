@@ -1,4 +1,5 @@
 const express = require('express')
+const { default: mongoose } = require('mongoose')
 const Mongo = require('../models/mongo')
 const router = express.Router()
 
@@ -28,6 +29,30 @@ router.post('/addauthor', (req, res)=>{
     })
     // store the author
 })
+
+
+// add book route
+router.get('/addbook', (req, res)=>{
+    // getting all authors
+    Mongo.Authors.find({}, (error, authors)=>{
+        if(error){
+            res.json({error: error})
+        }else{
+            res.render("addBook", {authors: authors})
+        }
+    })
+})
+
+// add new book
+router.post('/addbook', (req, res)=>{
+    console.log(req.body)
+    Mongo.Books.create({...req.body, author: new mongoose.Types.ObjectId(req.body.author)}).then(result=>{
+        res.json({success: `Book "${req.body.title}" wass added Successfuly`, result: result})
+    }).catch(error=>{
+        res.json({error: error.message})
+    })
+})
+
 
 
 
