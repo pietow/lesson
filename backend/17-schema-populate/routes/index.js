@@ -46,4 +46,23 @@ router.get('/books/:bookid', (req, res)=>{
     })
 })
 
+// For search
+router.get('/search', (req, res)=>{
+    //res.json(req.query.)
+    // search in Books title for somthing like title
+    Books.find({title: {$regex: req.query.title}}).populate('author').then(result=>{
+        res.render('search', {books: result})
+    }).catch(error=>{
+        res.render('error', {error: error.message})
+    })
+})
+
+router.get('/searchajax', (req, res)=>{
+    Books.find({title: {$regex: req.query.title}}).populate('author').then(result=>{
+        res.json({success: true, books: result})
+    }).catch(error=>{
+        res.json({success: false, error: error.message})
+    })
+})
+
 module.exports = router
