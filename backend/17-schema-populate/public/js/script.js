@@ -39,58 +39,14 @@ function submitForm(e) {
 
 // search
 function search(e) {
-    // send a request to server: /search, method is get, data: {title: inputVal}
-    // $.ajax({
-    //     url: '/searchajax',
-    //     method: "get",
-    //     data: {title: e.target.value},
-    //     success: response=>{
-    //         if(response.success){
-    //             // json object {success: true, books: [{}, {}, {}, ...]}
-    //             let htmlContent = `<h1 class="text-center display-4">Search Results: ${response.books.length}</h1>`
-    //             response.books.forEach((book, index)=>{
-    //                 if(index == 0){
-    //                     htmlContent += `<div class="row">`
-    //                 }else{
-    //                     // each 4 times generate div class col-md-3
-    //                     if(index % 4 == 0){
-    //                         htmlContent += `</div><div class="row">`
-    //                     }
-    //                 }
-    //                 htmlContent += `
-    //                     <div class="col-md-3 mb-3">
-    //                         <div class="card" style="width: 100%; height: 100%">
-    //                             <div class="card-body bg-dark border p-4">
-    //                                 <h5 class="card-title">${book.title}</h5>
-    //                                 <p class="card-text">Author: ${book.author.name}</p>
-    //                                 <div >
-    //                                 <a href="/books/${book._id}" class="btn btn-primary"
-    //                                   >Go To Book</a
-    //                                 >
-    //                                 <a
-    //                                   href="javascript:;"
-    //                                   class="btn btn-warning"
-    //                                   onclick="showDescription(\`${book.title}\`,\` ${book.description}\`)"
-    //                                   >Description</a
-    //                                 >
-    //                               </div>
-    //                               </div>
-    //                               </div>
-    //                               </div>
-    //                 `
-    //             })
-    //             htmlContent +="</div>"
-    //             // plase. content class with htmlContent
-    //             $('.container').html(htmlContent)
-    //         }else{
-    //             $('.container').html(response.error)
-    //         }
-    //     },
-    //     error: (xhr, status, error)=>{
-
-    //     }
-    // })
-    fetch(`/searchajax?title=${e.target.value}`).then(result => {
+  /* fetch(`/searchajax?title=${e.target.value ? e.target.value : ' '}`).then(result => { */
+  const id = e.value
+  if(!e.target) {
+    var url = `/filterBooks/${id}`
+  } else {
+    var url = `/searchajax?title=${e.target.value ? e.target.value : ' '}`
+  }
+  fetch(url).then(result => {
         result.json().then(response => {
             if (response.success) {
                 // json object {success: true, books: [{}, {}, {}, ...]}
@@ -128,9 +84,9 @@ function search(e) {
                 })
                 htmlContent += "</div>"
                 // plase. content class with htmlContent
-                $('.container').html(htmlContent)
+                $('.dynamicHTML').html(htmlContent)
             } else {
-                $('.container').html(`<h1 class="text-center display-4 bg-danger">ERROR</h1><pre>${response.error}</pre>`)
+                $('.dynamicHTML').html(`<h1 class="text-center display-4 bg-danger">ERROR</h1><pre>${response.error}</pre>`)
             }
         }).catch(err => {
             console.log(err)

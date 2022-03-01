@@ -1,68 +1,96 @@
 const express = require("express");
-const {Books} = require('../models/mongo')
-const router = express.Router()
+const { Books, Authors } = require("../models/mongo");
+const router = express.Router();
 
 // getting Home page
-router.get('/', (req, res)=>{
-    // getting all books
-    // Books.find().populate('author').then(allBooks=>{
-    //    res.render('index', {books: allBooks}) 
-    // }).catch(error=>{
-    //     res.render('error', {error: error.message})
-    // })
-    // one Book example after populate
-    /**
-     * {
-     *      title: ANY,
-     *      author: {
-     *          name: ANY,
-     *          email: ANY,
-     *          address: {
-     *              country: ANY,
-     *              city: ANY
-     *          },
-     *          phone: ANY
-     *      },
-     *      pages: ANY,
-     *      prise: ANY,
-     *      description: ANY
-     *  }
-     */
-    Books.find().populate('author').exec((error, books)=>{
-        if(error){
-            res.render('error', {error: error.message}) 
-        }
-        res.render('index', {books: books}) 
-    })
-    
-})
+router.get("/", (req, res) => {
+  // getting all books
+  // Books.find().populate('author').then(allBooks=>{
+  //    res.render('index', {books: allBooks})
+  // }).catch(error=>{
+  //     res.render('error', {error: error.message})
+  // })
+  // one Book example after populate
+  /**
+   * {
+   *      title: ANY,
+   *      author: {
+   *          name: ANY,
+   *          email: ANY,
+   *          address: {
+   *              country: ANY,
+   *              city: ANY
+   *          },
+   *          phone: ANY
+   *      },
+   *      pages: ANY,
+   *      prise: ANY,
+   *      description: ANY
+   *  }
+   */
+  Books.find()
+    .populate("author")
+    .exec((error, books) => {
+      if (error) {
+        res.render("error", { error: error.message });
+      }
+      let authors = books.reduce((acc, bcc) => {
+        acc[bcc.author.name] = bcc.author;
+        return acc;
+      }, {});
+      authors = Object.values(authors)
+      res.render("index", {
+        books: books,
+        authors: authors,
+      });
+    });
+});
 
-router.get('/books/:bookid', (req, res)=>{
-    console.log(req.params.bookid)
-    Books.findById(req.params.bookid).populate('author').then(book=>{
-        res.render('book', {book: book})
-    }).catch(error=>{
-        res.render('error', {error: error.message})
+router.get("/books/:bookid", (req, res) => {
+  console.log(req.params.bookid);
+  Books.findById(req.params.bookid)
+    .populate("author")
+    .then((book) => {
+      res.render("book", { book: book });
     })
-})
+    .catch((error) => {
+      res.render("error", { error: error.message });
+    });
+});
 
 // For search
-router.get('/search', (req, res)=>{
-    //res.json(req.query.)
-    // search in Books title for somthing like title
-    Books.find({title: {$regex: req.query.title}}).populate('author').then(result=>{
-        res.render('search', {books: result})
-    }).catch(error=>{
-        res.render('error', {error: error.message})
+router.get("/search", (req, res) => {
+  //res.json(req.query.)
+  // search in Books title for somthing like title
+  Books.find({ title: { $regex: req.query.title } })
+    .populate("author")
+    .then((result) => {
+      res.render("search", { books: result });
     })
+    .catch((error) => {
+      res.render("error", { error: error.message });
+    });
+});
+
+router.get("/searchajax", (req, res) => {
+  Books.find({ title: { $regex: req.query.title } })
+    .populate("author")
+    .then((result) => {
+      res.json({ success: true, books: result });
+    })
+    .catch((error) => {
+      res.json({ success: false, error: error.message });
+    });
+});
+router.get('/filterBooks/:id', (req, res)=>{
+  Books.find({author: req.params.id})
+    .populate("author")
+    .then((result) => {
+      res.json({ success: true, books: result });
+    })
+    .catch((error) => {
+      res.json({ success: false, error: error.message });
+    });
 })
 
-router.get('/searchajax', (req, res)=>{
-    Books.find({title: {$regex: req.query.title}}).populate('author').then(result=>{
-        res.json({success: true, books: result})
-    }).catch(error=>{
-        res.json({success: false, error: error.message})
-    })
-})
-
-module.exports = router
+module.exports = router;
